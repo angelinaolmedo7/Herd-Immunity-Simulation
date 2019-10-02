@@ -13,7 +13,8 @@ class Simulation(object):
     population that are vaccinated, the size of the population, and the amount of initially
     infected people in a population are all variables that can be set when the program is run.
     '''
-    def __init__(self, pop_size, vacc_percentage, initial_infected=1, virus):
+    def __init__(self, pop_size, vacc_percentage,
+                 initial_infected=1, virus=Virus("HIV", 0.8, 0.3)):
         ''' Logger object logger records all events during the simulation.
         Population represents all Persons in the population.
         The next_person_id is the next available id for all created Persons,
@@ -47,7 +48,7 @@ class Simulation(object):
         self.vacc_percentage = vacc_percentage # float between 0 and 1
         self.total_dead = 0 # Int
         self.file_name = "{}_simulation_pop_{}_vp_{}_infected_{}.txt".format(
-            virus_name, population_size, vacc_percentage, initial_infected)
+            virus.name, pop_size, vacc_percentage, initial_infected)
         self.newly_infected = []
 
     def _create_population(self, initial_infected):
@@ -60,6 +61,14 @@ class Simulation(object):
                 list: A list of Person objects.
 
         '''
+        initial_vacc = int(self.pop_size * self.vacc_percentage)
+        for person_num in range(0, initial_vacc):
+            self.population.append(Person(person_num, True))
+        for person_num in range(initial_vacc, initial_vacc + initial_infected):
+            self.population.append(Person(person_num, False, self.virus))
+        for person_num in range(initial_vacc + initial_infected, self.pop_size):
+            self.population.append(Person(person_num, False))
+
         # TODO: Finish this method!  This method should be called when the simulation
         # begins, to create the population that will be used. This method should return
         # an array filled with Person objects that matches the specifications of the
@@ -95,6 +104,7 @@ class Simulation(object):
         should_continue = None
 
         while should_continue:
+            pass
         # TODO: for every iteration of this loop, call self.time_step() to compute another
         # round of this simulation.
         print('The simulation has ended after {time_step_counter} turns.'.format(time_step_counter))
