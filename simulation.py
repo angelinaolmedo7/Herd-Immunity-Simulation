@@ -109,8 +109,10 @@ class Simulation(object):
                 False if it should end.
 
         """
-        # TODO: Complete this helper method.  Returns a Boolean.
-        pass
+        for person in self.population:
+            if person.is_alive or not person.is_vaccinated:
+                return True
+        return False
 
     def run(self):
         """Run the simulation.
