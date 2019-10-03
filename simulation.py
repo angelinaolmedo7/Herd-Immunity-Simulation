@@ -61,13 +61,15 @@ class Simulation(object):
                 list: A list of Person objects.
 
         '''
+        rtn_list = []
         initial_vacc = int(self.pop_size * self.vacc_percentage)
         for person_num in range(0, initial_vacc):
-            self.population.append(Person(person_num, True))
+            rtn_list.append(Person(person_num, True))
         for person_num in range(initial_vacc, initial_vacc + initial_infected):
-            self.population.append(Person(person_num, False, self.virus))
+            rtn_list.append(Person(person_num, False, self.virus))
         for person_num in range(initial_vacc + initial_infected, self.pop_size):
-            self.population.append(Person(person_num, False))
+            rtn_list.append(Person(person_num, False))
+        return rtn_list
 
         # TODO: Finish this method!  This method should be called when the simulation
         # begins, to create the population that will be used. This method should return
