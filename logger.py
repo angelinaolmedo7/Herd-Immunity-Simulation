@@ -1,4 +1,5 @@
 class Logger(object):
+    ''' Utility class responsible for logging all interactions during the simulation. \n
         Params: \n
         file_name: name of file to store metadata
     '''
