@@ -1,15 +1,23 @@
 class Logger(object):
-    ''' Utility class responsible for logging all interactions during the simulation. '''
+        Params: \n
+        file_name: name of file to store metadata
+    '''
     # TODO: Write a test suite for this class to make sure each method is working
     # as expected.
 
-    # PROTIP: Write your tests before you solve each function, that way you can
-    # test them one by one as you write your class.
+    def test_cases(self):
+        '''Assert all test cases here'''
+        # PROTIP: Write your tests before you solve each function, that way you can
+        # test them one by one as you write your class.
+        self.write_metadata(100000, 0.90, "Ebola", 0.70, 0.35)
+        self.log_interaction("Ryan", "rando", True, False, True)
+        return
 
     def __init__(self, file_name):
         # TODO:  Finish this initialization method. The file_name passed should be the
         # full file name of the file that the logs will be written to.
-        self.file_name = None
+        #self.file_name = file_name
+        self.file_name = file_name
 
     def write_metadata(self, pop_size, vacc_percentage, virus_name, mortality_rate,
                        basic_repro_num):
@@ -23,7 +31,13 @@ class Logger(object):
         # the 'a' mode to append a new log to the end, since 'w' overwrites the file.
         # NOTE: Make sure to end every line with a '/n' character to ensure that each
         # event logged ends up on a separate line!
-        pass
+
+        # Creates a str of all user inputs, seperated by commas.
+        metadata = f"{pop_size},{vacc_percentage},{virus_name},{mortality_rate},{basic_repro_num}"
+
+        # writes metadata to a file named metadata
+        data_file = open(self.file_name, "w")
+        data_file.write(metadata)
 
     def log_interaction(self, person, random_person, random_person_sick=None,
                         random_person_vacc=None, did_infect=None):
@@ -40,7 +54,11 @@ class Logger(object):
         # represent all the possible edge cases. Use the values passed along with each person,
         # along with whether they are sick or vaccinated when they interact to determine
         # exactly what happened in the interaction and create a String, and write to your logfile.
-        pass
+
+        # Infect person
+        if random_person_sick == True:
+            did_infect == True
+            return did_infect
 
     def log_infection_survival(self, person, did_die_from_infection):
         ''' The Simulation object uses this method to log the results of every
@@ -73,3 +91,7 @@ class Logger(object):
         # new one begins.
         # NOTE: Here is an opportunity for a stretch challenge!
         pass
+
+
+log = Logger('metadata')
+log.test_cases()
