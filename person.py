@@ -1,7 +1,7 @@
+from virus import Virus
+import unittest
 import random
 random.seed(42)
-import unittest
-from virus import Virus
 
 
 class Person(object):
@@ -18,7 +18,10 @@ class Person(object):
         self._id = _id  # int
         self.is_alive = True  # boolean
         self.is_vaccinated = is_vaccinated  # boolean
-        self.infection = infection  # Virus object or None
+        self.infection = Virus("Ebola", .3, .7)  # Virus object or None
+
+    def test_cases(self):
+        print(self.did_survive_infection())
 
     def did_survive_infection(self):
         ''' Generate a random number and compare to virus's mortality_rate.
@@ -28,11 +31,17 @@ class Person(object):
         '''
         # Only called if infection attribute is not None.
         # TODO:  Finish this method. Should return a Boolean
+        roll = random.random()
         if self.infection is not None:  # just in case
             return random.random() >= self.infection.mortality_rate
 
+        elif roll >= self.infection.mortality_rate:
+            return False
+
 
 ''' These are simple tests to ensure that you are instantiating your Person class correctly. '''
+
+
 def test_vacc_person_instantiation():
     # create some people to test if our init method works as expected
     person = Person(1, True)
@@ -81,3 +90,7 @@ def test_did_survive_infection():
         # the values of each attribute for a Person who did not survive
         # assert ...
         pass
+
+
+person = Person(0, True)
+person.test_cases()

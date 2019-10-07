@@ -1,3 +1,5 @@
+
+
 class Logger(object):
     ''' Utility class responsible for logging all interactions during the simulation. \n
         Params: \n
@@ -11,7 +13,7 @@ class Logger(object):
         # PROTIP: Write your tests before you solve each function, that way you can
         # test them one by one as you write your class.
         self.write_metadata(100000, 0.90, "Ebola", 0.70, 0.35)
-        self.log_interaction("Ryan", "rando", True, False, True)
+        self.log_interaction("Ryan", "rando", False, False, False)
         return
 
     def __init__(self, file_name):
@@ -56,10 +58,25 @@ class Logger(object):
         # along with whether they are sick or vaccinated when they interact to determine
         # exactly what happened in the interaction and create a String, and write to your logfile.
 
-        # Infect person
-        if random_person_sick == True:
+        # Infect person if theyre not vaccinated
+        if random_person_sick == False and not random_person_vacc:
             did_infect == True
-            return did_infect
+            random_person_sick == True
+            print(f"{random_person} got infected by {person}!")
+
+        # If you try to infect a sick person:
+        elif random_person_sick == True:
+            print(
+                f"{person} didn't infect {random_person} bacause they're already sick")
+            did_infect == False
+            random_person_sick == True
+
+        # If you try to infect a vaccinated person:
+        elif random_person_vacc == True:
+            print(
+                f"{person} didn't infect {random_person} because they're vaccinated ")
+            did_infect == False
+            random_person_sick == False
 
     def log_infection_survival(self, person, did_die_from_infection):
         ''' The Simulation object uses this method to log the results of every
@@ -71,7 +88,10 @@ class Logger(object):
         # TODO: Finish this method. If the person survives, did_die_from_infection
         # should be False.  Otherwise, did_die_from_infection should be True.
         # Append the results of the infection to the logfile
-        pass
+        if did_die_from_infection == True:
+            print(f"{person} died!")
+        elif did_die_from_infection == False:
+            print(f"{person} lived!")
 
     def log_time_step(self, time_step_number):
         ''' STRETCH CHALLENGE DETAILS:
