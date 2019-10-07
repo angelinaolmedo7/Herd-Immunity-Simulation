@@ -18,7 +18,7 @@ class Person(object):
         self._id = _id  # int
         self.is_alive = True  # boolean
         self.is_vaccinated = is_vaccinated  # boolean
-        self.infection = Virus("Ebola", .3, .7)  # Virus object or None
+        self.infection = Virus("Ebola", .3, .5)  # Virus object or None
 
     def test_cases(self):
         print(self.did_survive_infection())
@@ -32,11 +32,16 @@ class Person(object):
         # Only called if infection attribute is not None.
         # TODO:  Finish this method. Should return a Boolean
         roll = random.random()
+        print(roll)
+        print(self.infection.mortality_rate)
         if self.infection is not None:  # just in case
             return random.random() >= self.infection.mortality_rate
 
         elif roll >= self.infection.mortality_rate:
             return False
+
+        elif roll <= self.infection.mortality_rate:
+            return True
 
 
 ''' These are simple tests to ensure that you are instantiating your Person class correctly. '''
