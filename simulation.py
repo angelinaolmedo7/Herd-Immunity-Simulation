@@ -51,7 +51,7 @@ class Simulation(object):
         # attribute.
         # At the end of each time step, call self._infect_newly_infected()
         # and then reset .newly_infected back to an empty list.
-        self.logger = Logger()
+        self.logger = Logger('metadata')
         self.pop_size = pop_size  # Int
         self.next_person_id = 0  # Int
         self.virus = virus  # Virus object
@@ -110,7 +110,7 @@ class Simulation(object):
 
         """
         for person in self.population:
-            if person.is_alive or not person.is_vaccinated:
+            if person.is_alive and not person.is_vaccinated:
                 return True
         return False
 
