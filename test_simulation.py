@@ -7,7 +7,6 @@ from virus import Virus
 def test_pop_creation():
     """Test that the population is being created correctly."""
     sim = Simulation(1000, .1, 50, Virus('test', .5, .5))
-    sim._create_population(50)
     assert len(sim.population) == 1000
 
     vaccinated_count = 0
