@@ -1,39 +1,46 @@
+"""Log activity during sim."""
 
 
 class Logger(object):
-    ''' Utility class responsible for logging all interactions during the simulation. \n
-        Params: \n
+    """Utility class for logging all interactions during the simulation.
+
+    Params:
         file_name: name of file to store metadata
-    '''
-    # TODO: Write a test suite for this class to make sure each method is working
-    # as expected.
+    """
+
+    # TODO: Write a test suite for this class to make sure each method is
+    # working as expected.
 
     def test_cases(self):
-        '''Assert all test cases here'''
-        # PROTIP: Write your tests before you solve each function, that way you can
-        # test them one by one as you write your class.
+        """Assert all test cases here."""
+        # PROTIP: Write your tests before you solve each function, that way you
+        # can test them one by one as you write your class.
         self.write_metadata(100000, 0.90, "Ebola", 0.70, 0.35)
         self.log_interaction("Ryan", "rando", False, False, False)
         return
 
     def __init__(self, file_name):
-        # TODO:  Finish this initialization method. The file_name passed should be the
-        # full file name of the file that the logs will be written to.
-        #self.file_name = file_name
+        """Initialize logger.
+
+        The file_name passed should be the full file name of the file that the
+        logs will be written to.
+        self.file_name = file_name
+        """
         self.file_name = file_name
 
-    def write_metadata(self, pop_size, vacc_percentage, virus_name, mortality_rate,
-                       basic_repro_num):
-        '''
-        The simulation class should use this method immediately to log the specific
-        parameters of the simulation as the first line of the file.
-        '''
-        # TODO: Finish this method. This line of metadata should be tab-delimited
+    def write_metadata(self, pop_size, vacc_percentage, virus_name,
+                       mortality_rate, basic_repro_num):
+        """Log metadata immediately.
+
+        The simulation class should use this method immediately to log the
+        specific parameters of the simulation as the first line of the file.
+        """
+        # This line of metadata should be tab-delimited
         # it should create the text file that we will store all logs in.
-        # TIP: Use 'w' mode when you open the file. For all other methods, use
-        # the 'a' mode to append a new log to the end, since 'w' overwrites the file.
-        # NOTE: Make sure to end every line with a '/n' character to ensure that each
-        # event logged ends up on a separate line!
+        # Use 'w' mode when you open the file. For all other methods, use the
+        # 'a' mode to append a new log to the end, 'w' overwrites the file.
+        # NOTE: Make sure to end every line with a '/n' character to ensure
+        # that each event logged ends up on a separate line!
 
         # Creates a str of all user inputs, seperated by commas.
         metadata = f"{pop_size},{vacc_percentage},{virus_name},{mortality_rate},{basic_repro_num}"
@@ -41,6 +48,7 @@ class Logger(object):
         # writes metadata to a file named metadata
         data_file = open(self.file_name, "w")
         data_file.write(metadata)
+        d
 
     def log_interaction(self, person, random_person, random_person_sick=None,
                         random_person_vacc=None, did_infect=None):
