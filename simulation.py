@@ -157,9 +157,9 @@ class Simulation(object):
             if person.infection is not None:
                 interactions = 0
                 while interactions < 100:
-                    other = random.Choice(self.population)
+                    other = random.choice(self.population)
                     while other._id == person._id or not other.is_alive:
-                        other = random.Choice(self.population)
+                        other = random.choice(self.population)
                     self.interaction(person, other)
                     interactions += 1
 

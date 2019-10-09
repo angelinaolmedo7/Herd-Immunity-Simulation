@@ -87,3 +87,11 @@ def test_sim_should_continue():
     person1.is_alive = False
     person4.is_alive = False
     assert not sim4._simulation_should_continue()
+
+
+def test_run():
+    """Test that the sim runs without error."""
+    sim = Simulation(30, 1, 0)
+    sim.run()
+    sim = Simulation(0, 1, 0)
+    sim.run()
