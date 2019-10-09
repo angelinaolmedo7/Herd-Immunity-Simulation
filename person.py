@@ -43,8 +43,8 @@ class Person(object):
         if self.infection is None:  # just in case
             pass
         roll = random.random()
-        print(roll)
-        print(self.infection.mortality_rate)
+        # print(roll)
+        # print(self.infection.mortality_rate)
         survived = roll >= self.infection.mortality_rate
         if survived:  # remove infection and vaccinate
             self.infection = None
