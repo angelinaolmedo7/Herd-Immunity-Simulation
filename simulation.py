@@ -135,6 +135,7 @@ class Simulation(object):
 
         while should_continue:
             time_step_counter += 1
+            self.current_dead = 0
             self.time_step()
             should_continue = self._simulation_should_continue()
             self.logger.log_time_step(time_step_counter, self.current_infected,
@@ -166,12 +167,12 @@ class Simulation(object):
                         other = random.choice(self.population)
                     self.interaction(person, other)
                     interactions += 1
-                survived = not person.did_survive_infection()
+                survived = person.did_survive_infection()
                 if not survived:
                     self.total_dead += 1
                     self.current_dead += 1
                 self.total_infected -= 1
-                self.logger.log_infection_survival(person, survived)
+                self.logger.log_infection_survival(person, not survived)
         self._infect_newly_infected()
 
     def interaction(self, person, random_person):
@@ -257,5 +258,5 @@ if __name__ == "__main__":
     #
     # sim.run()
     virus = Virus('Tuberculosis', .3, .7)
-    sim = Simulation(1000, .2, 25, virus)
+    sim = Simulation(10000, .2, 25, virus)
     sim.run()

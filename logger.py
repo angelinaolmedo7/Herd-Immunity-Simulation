@@ -122,9 +122,9 @@ class Logger(object):
         log = ''
         data_file = open(self.file_name, 'a')
         if did_die_from_infection:
-            log += f"{person._id} died!\n"
+            log += f"{person._id} died from infection!\n"
         else:
-            log += f"{person._id} lived!\n"
+            log += f"{person._id} survived infection!\n"
         data_file.write(log)
         data_file.close()
 
