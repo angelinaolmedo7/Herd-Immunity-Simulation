@@ -56,8 +56,9 @@ class Simulation(object):
         self.next_person_id = 0  # Int
         self.virus = virus  # Virus object
         self.initial_infected = initial_infected  # Int
-        self.total_infected = 0  # Int
+        self.total_infected = initial_infected  # Int
         self.current_infected = 0  # Int
+        self.current_dead = 0  # Int
         self.vacc_percentage = vacc_percentage  # Float between 0 and 1
         self.total_dead = 0  # Int
         self.file_name = "{}_simulation_pop_{}_vp_{}_infected_{}.txt".format(
@@ -133,10 +134,12 @@ class Simulation(object):
         should_continue = self._simulation_should_continue()
 
         while should_continue:
-            self.time_step()
-            self.logger.log_time_step(time_step_counter)
             time_step_counter += 1
+            self.time_step()
             should_continue = self._simulation_should_continue()
+            self.logger.log_time_step(time_step_counter, self.current_infected,
+                                      self.current_dead, self.total_infected,
+                                      self.total_dead, should_continue)
         # TODO: for every iteration of this loop, call self.time_step() to
         # compute another round of this simulation.
         print(f'The simulation has ended after {time_step_counter} turns.')
@@ -164,6 +167,10 @@ class Simulation(object):
                     self.interaction(person, other)
                     interactions += 1
                 survived = not person.did_survive_infection()
+                if not survived:
+                    self.total_dead += 1
+                    self.current_dead += 1
+                self.total_infected -= 1
                 self.logger.log_infection_survival(person, survived)
         self._infect_newly_infected()
 
@@ -222,8 +229,11 @@ class Simulation(object):
         # TODO: Once you have iterated through the entire list of
         # self.newly_infected, remember
         # to reset self.newly_infected back to an empty list.
+        self.current_infected = 0
         for person in self.population:
-            if person._id in self.newly_infected:
+            if person._id in self.newly_infected and person.infection is None:
+                self.total_infected += 1
+                self.current_infected += 1
                 person.infection = self.virus
         self.newly_infected.clear()
 

@@ -128,7 +128,8 @@ class Logger(object):
         data_file.write(log)
         data_file.close()
 
-    def log_time_step(self, time_step_number):
+    def log_time_step(self, time_step_number, inf_count, die_count, total_sick,
+                      total_dead, should_continue):
         ''' STRETCH CHALLENGE DETAILS:
 
         If you choose to extend this method, the format of the summary statistics logged
@@ -146,8 +147,18 @@ class Logger(object):
         # TODO: Finish this method. This method should log when a time step ends, and a
         # new one begins.
         # NOTE: Here is an opportunity for a stretch challenge!
+        if should_continue:
+            log = f'Time step {time_step_number} ended, beginning {time_step_number + 1}.\n'
+        else:
+            log = f'Time step {time_step_number} ended, ending the simulation.\n'
+        log += 'Infected this step: ' + str(inf_count) + '\n'
+        log += 'Died this step: ' + str(die_count) + '\n'
+        log += 'Total sick: ' + str(total_sick) + '\n'
+        log += 'Total dead: ' + str(total_dead) + '\n'
+
         data_file = open(self.file_name, 'a')
-        data_file.write('NEW TIMESTEP\n')
+        data_file.write(log)
+
         data_file.close()
         pass
 
