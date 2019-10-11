@@ -256,6 +256,6 @@ if __name__ == "__main__":
     # sim = Simulation(pop_size, vacc_percentage, initial_infected, virus)
     #
     # sim.run()
-    virus = Virus('Tuberculosis', .9, .7)
-    sim = Simulation(30, .2, 5, virus)
+    virus = Virus('Tuberculosis', .3, .7)
+    sim = Simulation(1000, .2, 25, virus)
     sim.run()
